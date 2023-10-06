@@ -7,4 +7,8 @@
     <RootNamespace>RK_POS</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MudBlazor" Version="6.10.0" />
+  </ItemGroup>
+
 </Project>
