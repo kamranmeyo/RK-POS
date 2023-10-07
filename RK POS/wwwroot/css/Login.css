@@ -1,0 +1,62 @@
+﻿body {
+    background-color: #9f9da7;
+    color: #2b3e51;
+    font-size: 16px;
+}
+
+#login-form-wrap {
+    background-color: #fff;
+    width: 80%; /* Adjust the width based on your design */
+    margin: 30px auto;
+    text-align: center;
+    padding: 20px 0 0 0;
+    border-radius: 4px;
+    box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.2);
+}
+
+#login-form {
+    padding: 0 20px; /* Adjust the padding based on your design */
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 0 0 0 10px;
+    margin: 0;
+    color: #8a8b8e;
+    border: 1px solid #c2c0ca;
+    font-style: normal;
+    font-size: 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    display: inline-block;
+    background: none;
+}
+
+input[type="submit"] {
+    border: none;
+    display: block;
+    background-color: #3ca9e2;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 18px;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Media Query for smaller screens */
+@media screen and (max-width: 600px) {
+    #login-form-wrap {
+        width: 90%;
+    }
+
+    #login-form {
+        padding: 0 10px;
+    }
+}

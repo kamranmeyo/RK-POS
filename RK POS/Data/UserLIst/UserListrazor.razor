@@ -1,0 +1,103 @@
+﻿@page "/UserList"
+@using MudBlazor
+@inject NavigationManager NavigationManager
+
+<MudContainer>
+    <div class="centered-content">
+        <div class="header">
+            <h2 style="color: white;">User List</h2>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mb-2" @onclick="AddUser">Add User</MudButton>
+        </div>
+
+        <div class="entries">
+            <span>Show entries:</span>
+            <!-- You can add dropdown or other controls for selecting entries here -->
+        </div>
+
+        <div class="table-container">
+            <MudTable Items="@userList" TItem="UserModel">
+                <HeaderContent>
+                    <MudTh>First Name</MudTh>
+                    <MudTh>Last Name</MudTh>
+                    <MudTh>Email</MudTh>
+                    <MudTh>Password</MudTh>
+                    <MudTh>Role</MudTh>
+                </HeaderContent>
+                <RowTemplate Context="user">
+                    <MudTd>@user.FirstName</MudTd>
+                    <MudTd>@user.LastName</MudTd>
+                    <MudTd>@user.Email</MudTd>
+                    <MudTd>@user.Password</MudTd>
+                    <MudTd>@user.Role</MudTd>
+                </RowTemplate>
+            </MudTable>
+        </div>
+    </div>
+</MudContainer>
+
+<style>
+    .centered-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .header {
+        background-color: #007BFF;
+        padding: 10px;
+        text-align: center;
+        width: 80%; /* Set the width of the header as needed */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .entries {
+        margin-top: 10px;
+        text-align: left;
+        width: 80%; /* Set the width of the entries field as needed */
+    }
+
+    .table-container {
+        margin-top: 20px;
+        width: 80%; /* Set the width of the table as needed */
+    }
+</style>
+
+@code {
+    private List<UserModel> userList = new List<UserModel>();
+
+    protected override void OnInitialized()
+    {
+        // Initialize or load user data
+        userList = GetDummyUserData();
+    }
+
+    private void AddUser()
+    {
+        // Navigate to the AddNewUser page or show a modal for adding a new user
+        NavigationManager.NavigateTo("/AddNewUser");
+    }
+
+    private List<UserModel> GetDummyUserData()
+    {
+        // Populate the user list with dummy data
+        return new List<UserModel>
+        {
+            new UserModel { FirstName = "John", LastName = "Doe", Email = "john.doe@example.com", Password = "********", Role = "User" },
+            new UserModel { FirstName = "Jane", LastName = "Doe", Email = "jane.doe@example.com", Password = "********", Role = "Admin" },
+            // Add more users as needed
+        };
+    }
+
+    public class UserModel
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string Role { get; set; }
+    }
+}
