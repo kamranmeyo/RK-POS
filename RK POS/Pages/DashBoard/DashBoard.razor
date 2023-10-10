@@ -1,75 +1,249 @@
-﻿@page "/dashboard"
-<MudContainer MaxWidth="MaxWidth.False">
-    <MudGrid>
-        <MudItem md="8"
-                 sm="12"
-                 xs="12">
-            <MudBlazorCard />
-        </MudItem>
-        <MudItem md="4"
-                 sm="12"
-                 xs="12">
-            <ArticleCarousel />
-        </MudItem>
-        <MudItem md="4"
-                 sm="12"
-                 xs="12">
-            <DataCard ChartId="chartOne"
-                      IncreaseDecrease="IncreaseDecreaseActiveUsers"
-                      LastTenDays="_lastTenDaysActiveUsers"
-                      Title="Total Active Users"
-                      Total="TotalActiveUsers" />
-        </MudItem>
-        <MudItem md="4"
-                 sm="12"
-                 xs="12">
-            <DataCard BarColor="@Colors.Blue.Default"
-                      ChartId="chartTwo"
-                      IncreaseDecrease="IncreaseDecreaseInstalls"
-                      LastTenDays="_lastTenDaysInstalls"
-                      Title="Total Installed"
-                      Total="TotalInstalls" />
-        </MudItem>
-        <MudItem md="4"
-                 sm="12"
-                 xs="12">
-            <DataCard BarColor="@Colors.Orange.Default"
-                      ChartId="chartThree"
-                      IncreaseDecrease="IncreaseDecreaseDownloads"
-                      LastTenDays="_lastTenDaysDownloads"
-                      Title="Total Downloads"
-                      Total="TotalDownloads" />
-        </MudItem>
-        <MudItem md="6"
-                 sm="12">
-            <CurrentDownload />
-        </MudItem>
-        <MudItem md="6"
-                 sm="12">
-            <AreaInstalled />
-        </MudItem>
-        <MudItem md="8"
-                 sm="12">
-            <NewInvoice />
-        </MudItem>
-        <MudItem md="4"
-                 sm="12">
-            <TopApplications />
-        </MudItem>
-    </MudGrid>
-</MudContainer>
-@code{
-    public partial class Index
-    {
-        private const int TotalActiveUsers = 18765;
-        private const double IncreaseDecreaseActiveUsers = 2.6;
-        private const int TotalInstalls = 4876;
-        private const double IncreaseDecreaseInstalls = 0.2;
-        private const int TotalDownloads = 678;
-        private const double IncreaseDecreaseDownloads = -0.1;
+﻿@page "/DashBoard"
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap-extended.min.css">
+<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/fonts/simple-line-icons/style.min.css">
+<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/colors.min.css">
+<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 
-        private readonly List<int> _lastTenDaysActiveUsers = new() { 20, 41, 63, 23, 38, 25, 50, 46, 11, 26 };
-        private readonly List<int> _lastTenDaysDownloads = new() { 20, 41, 63, 23, 38, 25, 50, 46, 11, 26 };
-        private readonly List<int> _lastTenDaysInstalls = new() { 20, 41, 63, 23, 38, 25, 50, 46, 11, 26 };
+
+<style>
+
+    body {
+        font-family: 'Raleway', sans-serif;
     }
+
+    .main-section {
+        width: 100%;
+        margin-top: -40px;
+        //margin:0 auto;
+        text-align: center;
+        padding: 0px 5px;
+    }
+
+    .dashbord {
+        width: 32%;
+        display: inline-block;
+        background-color: #34495E;
+        color: #fff;
+        margin-top: 50px;
+    }
+
+    .icon-section i {
+        font-size: 30px;
+        padding: 10px;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        margin-top: -25px;
+        margin-bottom: 10px;
+        background-color: #34495E;
+    }
+
+    .icon-section p {
+        margin: 0px;
+        font-size: 20px;
+        padding-bottom: 10px;
+    }
+
+    .detail-section {
+        background-color: #2F4254;
+        padding: 5px 0px;
+    }
+
+    .dashbord .detail-section:hover {
+        background-color: #5a5a5a;
+        cursor: pointer;
+    }
+
+    .detail-section a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .dashbord-green .icon-section, .dashbord-green .icon-section i {
+        background-color: #16A085;
+    }
+
+    .dashbord-green .detail-section {
+        background-color: #149077;
+    }
+
+    .dashbord-orange .icon-section, .dashbord-orange .icon-section i {
+        background-color: #FF7F95;
+    }
+
+    .dashbord-orange .detail-section {
+        background-color: #FF5774;
+    }
+
+
+    .card:hover {
+        box-shadow: 0 0 11px rgba(35,35,35,.5);
+    }
+
+    .mud-input-control > .mud-input-control-input-container {
+        width: 200px;
+    }
+
+</style>
+<div class="grey-bg container-fluid">
+    <section id="minimal-statistics">
+        <br>
+        <div class="row">
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="media d-flex">
+                                <div class="align-self-center">
+                                    <i class="fas fa-shopping-cart warning font-large-2 float-left"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <h3>1</h3>
+                                    <span>Sales</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="media d-flex">
+                                <div class="align-self-center">
+                                    <i class="fas fa-Money warning font-large-2 float-left">$</i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <h3>2</h3>
+                                    <span>Earnings</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="media d-flex">
+                                <div class="align-self-center">
+                                    <i class="fas fa-box  success font-large-2 float-left"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <h3>3</h3>
+                                    <span>Products</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="media d-flex">
+                                <div class="align-self-center">
+                                    <i class="fas fa-users danger font-large-2 float-left"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <h3>4</h3>
+                                    <span>Users</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+    </section>
+</div>
+
+
+
+<div>
+    <MudChart ChartType="ChartType.Line" ChartSeries="@Series" @bind-SelectedIndex="Index" XAxisLabels="@XAxisLabels" Width="100%" Height="350px"></MudChart>
+    
+</div>
+<div>
+    <MudTable Items="@transactions" Class="mt-4">
+        <ToolBarContent id="toolbar-content">
+            <h2>heading</h2>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Invoice No</MudTh>
+            <MudTh>Date</MudTh>
+            <MudTh>Total</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>@context.InvoiceNo</MudTd>
+            <MudTd>@context.Date</MudTd>
+            <MudTd>@context.Total</MudTd>
+        </RowTemplate>
+    </MudTable>
+</div>
+<style>
+    #toolbar-content{
+        border-bottom:1px solid #000;
+    }
+</style>
+@code {
+    private List<Transaction> transactions;
+
+    protected override void OnInitialized()
+    {
+        // Populate the transactions list with your data
+        transactions = new List<Transaction>
+        {
+            new Transaction { InvoiceNo = "001", Date = "2023-10-09", Total = "$100.00" },
+            new Transaction { InvoiceNo = "002", Date = "2023-10-08", Total = "$75.50" },
+            // Add more transactions as needed
+        };
+    }
+
+    public class Transaction
+    {
+        public string InvoiceNo { get; set; }
+        public string Date { get; set; }
+        public string Total { get; set; }
+    }
+    private int Index = -1; //default value cannot be 0 -> first selectedindex is 0.
+
+    public List<ChartSeries> Series = new List<ChartSeries>()
+    {
+        new ChartSeries() { Name = "Series 1", Data = new double[] { 90, 79, 72, 69, 62, 62, 55, 65, 70 } },
+        new ChartSeries() { Name = "Series 2", Data = new double[] { 10, 41, 35, 51, 49, 62, 69, 91, 148 } },
+    };
+    public string[] XAxisLabels = { "mon", "tue", "wed", "thu", "fri", "sat", "sun", };
+
+    Random random = new Random();
+    public void RandomizeData()
+    {
+        var new_series = new List<ChartSeries>()
+        {
+            new ChartSeries() { Name = "Series 1", Data = new double[9] },
+            new ChartSeries() { Name = "Series 2", Data = new double[9] },
+        };
+        for (int i = 0; i < 9; i++)
+        {
+            new_series[0].Data[i] = random.NextDouble() * 100;
+            new_series[1].Data[i] = random.NextDouble() * 100;
+        }
+        Series = new_series;
+        StateHasChanged();
+    }
+    
 }
+
