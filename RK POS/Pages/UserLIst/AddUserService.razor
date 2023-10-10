@@ -1,0 +1,43 @@
+﻿@page "/AddUserService"
+
+<MudDialog Style="width: 80%">
+    <DialogContent>
+        <MudContainer>
+            <MudPaper class="form-container">
+               
+                <MudForm OnValidSubmit="@HandleValidSubmit">
+                    <MudTextField Label="First Name" @bind-Value="firstName" Required="true" />
+                    <MudTextField Label="Last Name" @bind-Value="lastName" Required="true" />
+                    <MudTextField Label="Email" @bind-Value="email" Required="true" Type="InputType.Email" />
+                    <MudTextField Label="Password" @bind-Value="password" Required="true" Type="InputType.Password" />
+                    
+                </MudForm>
+            </MudPaper>
+        </MudContainer>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    void Cancel() => MudDialog.Cancel();
+
+
+    private string firstName;
+    private string lastName;
+    private string email;
+    private string password;
+
+    private void HandleValidSubmit()
+    {
+        // Perform actions when the form is submitted
+        // For now, let's just print the input values to the console
+        Console.WriteLine($"Submitted User: {firstName} {lastName}, Email: {email}, Password: {password}");
+    }
+}

@@ -1,0 +1,83 @@
+﻿@page "/EditService"
+
+
+<MudDialog style="width: 50%;">
+    <DialogContent>
+       
+                    <MudForm Model="@product" OnValidSubmit="@HandleValidSubmit">
+                        <MudTextField Label="Category" @bind-Value="product.Category" Required="true" />
+                        <MudTextField Label="Name" @bind-Value="product.Name" Required="true" />
+                        <MudTextField Label="Price" @bind-Value="product.Price" Required="true" Type="InputType.Number" />
+                        <MudTextField Label="Description" @bind-Value="product.Description" Required="true" Multiline="true" />
+                        <MudImage Src="@product.ImageFiles?.FirstOrDefault()?.Name" Alt="" Class="mx-auto my-auto" />
+                        <MudFileUpload T="IBrowserFile" FilesChanged="UploadFiles">
+                            <ButtonTemplate>
+                                <MudFab HtmlTag="label"
+                                        Color="Color.Secondary"
+                                        Icon="@Icons.Material.Filled.Image"
+                                        Label="Load picture"
+                                        for="@context" />
+                            </ButtonTemplate>
+                        </MudFileUpload>
+
+
+                    </MudForm>
+                
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+<style>
+    .centered-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .form-container {
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px; /* Set your desired maximum width */
+        width: 100%;
+    }
+
+    
+</style>
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    void Cancel() => MudDialog.Cancel();
+
+    private ProductModel product = new ProductModel();
+    IList<IBrowserFile> files = new List<IBrowserFile>();
+    private void UploadFiles(IBrowserFile file)
+    {
+        files.Add(file);
+        //TODO upload the files to the server
+    }
+    private void HandleValidSubmit()
+    {
+        // Handle form submission logic here
+        // Access form values using product properties
+        // Access the image file using the imageFile property
+        // For example: var category = product.Category;
+        // Save the product, perform an API call, etc.
+    }
+
+    public class ProductModel
+    {
+        public string Category { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public string Description { get; set; }
+        public List<IBrowserFile> ImageFiles { get; set; }
+
+    }
+    
+}

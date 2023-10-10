@@ -1,0 +1,73 @@
+﻿@page "/ShopSetting"
+@using MudBlazor
+<MudContainer>
+    <div class="centered-content">
+        <MudPaper Class="form-container">
+            <div class="header">
+                <h2 style="color: white;">Shop Settings</h2>
+            </div>
+            <MudForm Model="@shopSettings">
+                <MudTextField Label="Shop Name" @bind-Value="shopSettings.ShopName" Required="true" />
+                <MudSelect Label="Select Currency" @bind-Value="shopSettings.SelectedCurrency">
+                    @foreach (var currency in shopSettings.Currencies)
+                    {
+                        <MudSelectItem Value="@currency">@currency</MudSelectItem>
+                    }
+                </MudSelect>
+
+                <MudTextField Label="Discount" @bind-Value="shopSettings.Discount" Required="true" />
+                <MudTextField Label="Text (%)" @bind-Value="shopSettings.Tex" Required="true" />
+                <MudButton Color="Color.Primary"  @onclick="HandleValidSubmit">Save change</MudButton>
+            </MudForm>
+        </MudPaper>
+    </div>
+</MudContainer>
+
+<style>
+    .centered-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .form-container {
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px; /* Set your desired maximum width */
+        width: 100%;
+    }
+
+    .header {
+        background-color: #007BFF; /* Set the header background color to blue */
+        padding: 10px;
+        text-align: center;
+    }
+</style>
+
+@code {
+    private ShopSettingsModel shopSettings = new ShopSettingsModel();
+
+    private void HandleValidSubmit()
+    {
+        // Handle form submission logic here
+        // Access form values using shopSettings properties
+        // For example: var shopName = shopSettings.ShopName;
+        // Save the settings, perform an API call, etc.
+    }
+
+    public class ShopSettingsModel
+    {
+        public string ShopName { get; set; }
+        public int Discount { get; set; }
+        public string Tex { get; set; }
+        public string SelectedCurrency { get; set; }
+
+        public List<string> Currencies { get; } = new List<string>
+       {
+        "USD", "EUR", "GBP", "JPY", "AUD", "CAD", "PKR" 
+       };
+    }
+
+}
