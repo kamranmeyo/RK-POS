@@ -1,4 +1,4 @@
-﻿@page "/DashBoard"
+﻿@page "/"
 <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap-extended.min.css">
 <link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/fonts/simple-line-icons/style.min.css">
@@ -172,28 +172,32 @@
 </div>
 
 
+<div style="width: 100%;">
+    <div style="width: 50%;float:left;background:white">
+        <MudChart ChartType="ChartType.Line" ChartSeries="@Series" @bind-SelectedIndex="Index" XAxisLabels="@XAxisLabels" Width="100%" Height="350px"></MudChart>
 
-<div>
-    <MudChart ChartType="ChartType.Line" ChartSeries="@Series" @bind-SelectedIndex="Index" XAxisLabels="@XAxisLabels" Width="100%" Height="350px"></MudChart>
-    
-</div>
-<div>
-    <MudTable Items="@transactions" Class="mt-4">
-        <ToolBarContent id="toolbar-content">
-            <h2>heading</h2>
-        </ToolBarContent>
-        <HeaderContent>
-            <MudTh>Invoice No</MudTh>
-            <MudTh>Date</MudTh>
-            <MudTh>Total</MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd>@context.InvoiceNo</MudTd>
-            <MudTd>@context.Date</MudTd>
-            <MudTd>@context.Total</MudTd>
-        </RowTemplate>
-    </MudTable>
-</div>
+    </div>
+                <div style="margin-left:52%">
+        <MudTable Items="@transactions" Class="mt-4">
+            <ToolBarContent>
+                <h2>heading</h2>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Invoice No</MudTh>
+                <MudTh>Date</MudTh>
+                <MudTh>Total</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>@context.InvoiceNo</MudTd>
+                <MudTd>@context.Date</MudTd>
+                <MudTd>@context.Total</MudTd>
+            </RowTemplate>
+
+        </MudTable>
+    </div>
+                </div>
+
+
 <style>
     #toolbar-content{
         border-bottom:1px solid #000;
@@ -208,6 +212,10 @@
         transactions = new List<Transaction>
         {
             new Transaction { InvoiceNo = "001", Date = "2023-10-09", Total = "$100.00" },
+            new Transaction { InvoiceNo = "002", Date = "2023-10-08", Total = "$75.50" },
+                        new Transaction { InvoiceNo = "001", Date = "2023-10-09", Total = "$100.00" },
+            new Transaction { InvoiceNo = "002", Date = "2023-10-08", Total = "$75.50" },
+                        new Transaction { InvoiceNo = "001", Date = "2023-10-09", Total = "$100.00" },
             new Transaction { InvoiceNo = "002", Date = "2023-10-08", Total = "$75.50" },
             // Add more transactions as needed
         };
