@@ -1,12 +1,19 @@
 ﻿@page "/UserList"
 @using MudBlazor
+@inject IDialogService DialogService
 @inject NavigationManager NavigationManager
+@inject IDialogService AddUserService
+
+<!-- The rest of your component code goes here -->
+
 
 <MudContainer>
     <div class="centered-content">
         <div class="header">
             <h2 style="color: white;">User List</h2>
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mb-2" @onclick="AddUser">Add User</MudButton>
+            <MudButton @onclick="OpenAddUserDialog" Variant="Variant.Filled" Color="Color.Primary">
+                Add User
+            </MudButton>
         </div>
 
         <div class="entries">
@@ -75,11 +82,7 @@
         userList = GetDummyUserData();
     }
 
-    private void AddUser()
-    {
-        // Navigate to the AddNewUser page or show a modal for adding a new user
-        NavigationManager.NavigateTo("/AddNewUser");
-    }
+    
 
     private List<UserModel> GetDummyUserData()
     {
@@ -99,5 +102,10 @@
         public string Email { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }
+    }
+    private void OpenAddUserDialog()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        DialogService.Show<AddUserService>("Add User", options);
     }
 }
