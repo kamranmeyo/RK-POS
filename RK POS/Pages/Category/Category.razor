@@ -1,8 +1,8 @@
-﻿@page "/ProductList"
+﻿@page "/Category"
 @inject NavigationManager NavigationManager
-@inject IDialogService DialogService
-@inject IDialogService EditService
-@inject IDialogService EditService
+@inject IDialogService CategoryService
+@inject IDialogService EditCategory
+@inject IDialogService AddCategory
 
 <MudContainer>
     <div class="row mt-3" style="background:#594AE2;">
@@ -33,10 +33,9 @@
             <tr></tr>
             <tr>
                 <th>SL</th>
-                <th>Product Images</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Category</th>
+                <th>Category Type</th>
+                <th colspan="2">Product Name</th>
+                <th>Total</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -44,10 +43,9 @@
             <!-- Add rows dynamically based on your product data -->
             <tr>
                 <td>1</td>
-                <td><!-- Product Images Go Here --></td>
-                <td>Product 1</td>
-                <td>$20.00</td>
-                <td>Category A</td>
+                <td>Category 1</td>
+                <td colspan="2">Product 1</td>
+                <td>23</td>
                 <td>
                     <!-- Add/Edit/Delete buttons or actions go here -->
                     <MudButton @onclick="OpenEditDialog" Variant="Variant.Filled" Color="Color.Primary">
@@ -60,10 +58,9 @@
             </tr>
             <tr>
                 <td>2</td>
-                <td><!-- Product Images Go Here --></td>
-                <td>Product 2</td>
-                <td>$20.00</td>
-                <td>Category b</td>
+                <td>Catefory 2 </td>
+                <td colspan="2">Product 2</td>
+                <td>11</td>
                 <td>
                     <!-- Add/Edit/Delete buttons or actions go here -->
                     <MudButton Color="Color.Primary">Edit</MudButton>
@@ -126,16 +123,16 @@
     private void OpenDialog()
     {
         var options = new DialogOptions { CloseOnEscapeKey = true };
-        DialogService.Show<DiaLogService>("Delete", options);
+        CategoryService.Show<CategoryService>("Delete", options);
     }
     private void OpenEditDialog()
     {
         var options = new DialogOptions { CloseOnEscapeKey = true };
-        DialogService.Show<EditService>("Edit", options);
+        CategoryService.Show<AddCategory>("Edit", options);
     }
     private void OpenAddDialog()
     {
         var options = new DialogOptions { CloseOnEscapeKey = true };
-        DialogService.Show<EditProduct>("Add Product", options);
+        CategoryService.Show<AddCategory>("Add Product", options);
     }
 }

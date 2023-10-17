@@ -10,7 +10,8 @@
     <MudAppBar>
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
        RK-POS
-        <MudButton Style="margin-left:5px" Color="Color.Tertiary" Variant="Variant.Outlined">POS</MudButton>
+        <MudButton Style="margin-left:5px" Color="Color.Tertiary" Variant="Variant.Outlined" @onclick="NavigateToProductCart">POS</MudButton>
+
     </MudAppBar>
     <MudDrawer @bind-Open="@_drawerOpen">
         <MyNavMenu/>
@@ -26,5 +27,12 @@
     void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
+    }
+
+    [Inject] private NavigationManager NavigationManager { get; set; }
+
+    private void NavigateToProductCart()
+    {
+        NavigationManager.NavigateTo("/ProductCart"); // Replace "/ProductCart" with the actual path of your ProductCart page
     }
 }
