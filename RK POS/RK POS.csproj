@@ -12,6 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Pages\SaleReport\" />
 	  <Folder Include="wwwroot\Images\" />
 	</ItemGroup>
 

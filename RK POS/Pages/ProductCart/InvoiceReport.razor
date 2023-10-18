@@ -1,11 +1,12 @@
 ﻿@page "/InvoiceReport"
 @using Microsoft.AspNetCore.Components.Forms
 @using System.IO
-
+<MudDialog>
+    <DialogContent>
 <MudContainer>
     <div class="centered-content">
         <MudPaper Class="form-container">
-            <MudGrid>              
+            <MudGrid>
                 <MudItem xs="12">
                     <h2 style="margin-left:300px;">Invoice</h2>
                     <h5 style="margin-left:300px;">inv0083</h5>
@@ -59,18 +60,21 @@
                         </MudItem>
                     </MudGrid>
                 </MudItem>
+                
             </MudGrid>
         </MudPaper>
     </div>
 </MudContainer>
-
+</DialogContent>
+    <DialogActions>
+         <footer style="background-color: lightblue;" class="form-container">
+        <MudButton Color="Color.Primary" OnClick="Submit">Print</MudButton>
+        </footer>
+    </DialogActions>
+</MudDialog>
+   
 <style>
-    .centered-content {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-    }
+    
 
     .form-container {
         padding: 20px;
@@ -79,15 +83,10 @@
         max-width: 800px; /* Adjust the maximum width as needed */
         width: 100%;
     }
-
-    
-
-    
 </style>
 
 @code {
     private ReportModel Report = new ReportModel();
-
 
     private void HandleValidSubmit()
     {
@@ -104,6 +103,8 @@
         public decimal Price { get; set; }
         public string Category { get; set; }
         public string Description { get; set; }
-      
     }
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(true));
 }

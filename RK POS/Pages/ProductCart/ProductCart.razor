@@ -1,5 +1,7 @@
 ﻿@page "/ProductCart"
-
+@inject NavigationManager NavigationManager
+@inject IDialogService DialogService
+@inject IDialogService InvoiceReport
 @using System.Net.Http.Json
 
 <MudGrid>
@@ -43,7 +45,17 @@
                     </tr>
                 </tbody>
             </table>
-
+           <div class="row">
+              <divc class="col-md-6">
+                    <MudButton Variant="Variant.Filled">Default</MudButton>
+              </divc>
+                <divc class="col-md-6">
+                    <MudButton @onclick="OpenDialog" Variant="Variant.Filled" Color="Color.Primary">
+                       Paynow
+                    </MudButton>
+                </divc>
+            </div>
+           
 
         </div>
     </MudItem>
@@ -198,5 +210,9 @@
     private string data3;
     private string data4;
 
-    
+    private void OpenDialog()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        DialogService.Show<InvoiceReport>("Paynow", options);
+    }
 }
