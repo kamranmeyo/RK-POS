@@ -15,11 +15,17 @@
                 Add User
             </MudButton>
         </div>
-
-        <div class="entries">
-            <span>Show entries:</span>
-            <!-- You can add dropdown or other controls for selecting entries here -->
-        </div>
+     
+    <MudGrid Style="margin-left:10px; width:10%;">
+        <MudItem>
+            <MudSelect Label="Show Entities" @bind-Value="selectedEntity">
+                @foreach (var entity in entities)
+                {
+                    <MudSelectItem Value="@entity">@entity</MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
+    </MudGrid>
 
         <div class="table-container">
             <MudTable Items="@userList" TItem="UserModel">
@@ -75,6 +81,12 @@
 </style>
 
 @code {
+    private string selectedEntity; // Assuming you have a property to bind to the dropdown
+
+    private List<string> entities = new List<string>
+    {
+        "Entity1", "Entity2", "Entity3" // Add your entities
+    };
     private List<UserModel> userList = new List<UserModel>();
 
     protected override void OnInitialized()
